@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.agent.dao.provinceandcity.ProvinceAndCitysMapper">
+
+<!--public  Logs getShengShiXian(Area area);  -->
+
+
+ <select id="getShengShiXian" resultType="org.agent.pojo.Area"
+		parameterType="org.agent.pojo.Area">
+ 
+
+SELECT  a.`area`  ,c.`city` areaId ,p.`province` father FROM hat_province p, hat_city c,hat_area a WHERE  a.`areaID`=#{areaId} AND a.`father`=c.`cityID` AND c.`father`=p.`provinceID`
+	
+	</select>
+ 
+
+	<select id="getProvinceList" resultType="org.agent.pojo.Province">
+
+		select * from hat_province
+
+	</select>
+
+	<select id="getCitys" resultType="org.agent.pojo.City"
+		parameterType="org.agent.pojo.Province">
+
+
+		SELECT c.* FROM hat_city c WHERE c.`father` =#{provinceId}
+
+
+	</select>
+
+	<select id="getAreas" resultType="org.agent.pojo.Area"
+		parameterType="org.agent.pojo.City">
+
+
+		SELECT c.* FROM hat_area c WHERE c.`father` =#{cityId}
+
+
+	</select>
+
+ 
+
+
+
+
+</mapper>

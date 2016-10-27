@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.agent.dao.Customs.CustomsMapper">
+	<update id="modifyCustomStatus" parameterType="org.agent.pojo.Customs">
+		update as_customs
+		<set>
+			<if test="customStatus==1"> customStatus =0, </if>
+<if test="customStatus==0"> customStatus =1, </if>
+
+		</set>
+
+		where id=#{id}
+	</update>
+
+	<delete id="deleteCustoms" parameterType="org.agent.pojo.Customs">
+
+		delete from as_customs
+		<where>
+
+			<if test="id!=null and id!=0"> id =#{id} </if>
+
+
+
+
+
+		</where>
+
+
+	</delete>
+
+
+
+	<select id="getCustomsBySearch" resultType="org.agent.pojo.Customs"
+		parameterType="org.agent.pojo.Customs">
+
+		select * from as_customs
+		<where>
+
+			<if test="agentId!=null and agentId!=0">
+				and agentId =#{agentId}
+			</if>
+			<if test="customName!=null">
+				and customName like CONCAT('%',#{customName},'%')
+			</if>
+
+		</where>
+
+	</select>
+
+	<select id="getCustomsById" resultType="org.agent.pojo.Customs"
+		parameterType="org.agent.pojo.Customs">
+
+		select * from as_customs
+		<where>
+
+			<if test="id!=null and id!=0">and id =#{id}</if>
+
+
+			<if test="customName!=null">and customName =#{customName}</if>
+
+
+
+
+		</where>
+
+	</select>
+
+	<insert id="addCustoms" parameterType="org.agent.pojo.Customs">
+		insert into
+		as_customs(agentId,agentName,customName,customType,customTypeName,siteUrl,customStatus,
+		bossName,cardType,cardTypeName,cardNum,companyTel,companyFax,regDatetime,country,province,city,area,companyAddress,memo,agentCode)
+
+		values(#{agentId},#{agentName},#{customName},#{customType},#{customTypeName},#{siteUrl},#{customStatus},#{
+		bossName},#{cardType},#{cardTypeName},#{cardNum},#{companyTel},#{companyFax},#{regDatetime},#{country},#{province},#{city},#{area},#{companyAddress},#{memo},#{agentCode})
+		<selectKey keyProperty="id" resultType="int">
+			select last_insert_id()
+
+		</selectKey>
+	</insert>
+
+	<!-- 后面的,号 -->
+	<update id="modifyCustoms" parameterType="org.agent.pojo.Customs">
+		update as_customs
+		<set>
+			<if test="city!=null"> city =#{city}, </if>
+			<if test="area!=null"> area =#{area}, </if>
+			<if test="companyAddress!=null"> companyAddress =#{companyAddress}, </if>
+			<if test="memo!=null"> memo =#{memo}, </if>
+			<if test="agentCode!=null"> agentCode =#{agentCode}, </if>
+
+
+			<if test="siteUrl!=null"> siteUrl =#{siteUrl}, </if>
+			<if test="customStatus!=null"> customStatus =#{customStatus}, </if>
+			<if test="bossName!=null"> bossName =#{bossName}, </if>
+			<if test="cardType!=null"> cardType =#{cardType}, </if>
+			<if test="cardTypeName!=null"> cardTypeName =#{cardTypeName}, </if>
+			<if test="companyTel!=null"> companyTel =#{companyTel}, </if>
+			<if test="companyFax!=null"> companyFax =#{companyFax}, </if>
+			<if test="regDatetime!=null"> regDatetime =#{regDatetime}, </if>
+			<if test="country!=null"> country =#{country}, </if>
+			<if test="province!=null"> province =#{province}, </if>
+
+			<if test="agentId!=null and agentId!=0"> agentId =#{agentId}, </if>
+			<if test="agentName!=null"> agentName =#{agentName}, </if>
+
+
+
+			<if test="customName!=null"> customName =#{customName}, </if>
+			<if test="customTypeName!=null"> customTypeName =#{customTypeName}, </if>
+
+
+
+		</set>
+
+		where id=#{id}
+	</update>
+
+
+
+	<select id="isExitCustoms" parameterType="org.agent.pojo.Customs"
+		resultType="int">
+		select count(*) from as_customs
+
+		<where>
+
+
+			<if test="customName!=null">
+				and customName =#{customName}
+			</if>
+
+
+
+		</where>
+
+	</select>
+
+
+	<select id="count" parameterType="org.agent.pojo.Customs"
+		resultType="int">
+		select count(*) from as_customs
+
+
+	</select>
+
+</mapper>

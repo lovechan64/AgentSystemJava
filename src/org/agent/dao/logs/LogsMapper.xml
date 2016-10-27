@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.agent.dao.logs.LogsMapper">
+	<select id="getList" resultType="org.agent.pojo.Logs"
+		parameterType="org.agent.pojo.Logs">
+
+	<!-- 	select * from as_logs where -->
+		
+		SELECT * FROM as_logs a  
+	
+			
+	
+	
+		<where>
+
+ 
+			<if test="userId!=null and userId!=0 "> AND  a.`userId`=#{userId}  </if>
+
+		<if test="operateDatetime!=null">  AND a.`operateDatetime` LIKE  CONCAT('%',#{odt},'%') </if>
+	
+
+
+	
+	
+		</where>
+
+  
+order by a.`operateDatetime` desc
+
+  <if test="starNum!=null and pageSize!=0 and pageSize!=null">    limit #{starNum},#{pageSize}    </if>  
+
+ 
+ 
+
+	</select>
+
+
+
+	<insert id="addLogs" parameterType="org.agent.pojo.Logs">
+		insert into as_logs( userId,userName,operateInfo,operateDatetime
+
+		)
+
+
+
+
+
+
+		values(#{userId},#{userName},#{operateInfo},#{operateDatetime} )
+
+	</insert>
+
+
+
+
+	<select id="count" parameterType="org.agent.pojo.Logs"
+		resultType="int">
+		select count(1) from as_logs
+
+		<where>
+
+
+			<if test="userId!=null and userId!=0 ">
+				and userId =#{userId}
+			</if>
+
+			<if test="operateDatetime!=null">
+				and operateDatetime =#{operateDatetime}
+			</if>
+
+
+
+
+		</where>
+
+	</select>
+
+</mapper>

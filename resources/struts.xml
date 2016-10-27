@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+
+<struts>
+	
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
+    <package name="global" namespace="/" extends="struts-default">
+          <interceptors>
+      	<interceptor name="isLoginInterceptor" class="org.agent.interceptor.AdminInterceptor"></interceptor>
+      	<interceptor-stack name="adminInterceptor">
+      		<interceptor-ref name="isLoginInterceptor"/>
+      		<interceptor-ref name="defaultStack"/>
+      	</interceptor-stack>
+      </interceptors>
+      
+       
+           
+   <global-results>
+   
+   	<result name="login" type="redirectAction">login</result>
+   </global-results>
+      
+       
+       
+       
+       
+   
+      
+    </package>
+       <package name="admin" namespace="/" extends="global">
+      
+  
+       <default-interceptor-ref name="adminInterceptor"/>
+       
+  
+      
+    </package>
+    
+    
+    <include file="struts/struts-report.xml"></include>
+<include file="struts/struts-keyword.xml"></include>
+<include file="struts/struts-custom.xml"></include>
+<include file="struts/struts-login.xml"></include>
+<include file="struts/struts-user.xml"></include>
+<include file="struts/struts-role.xml"></include>
+<include file="struts/struts-systemconfig.xml"></include>
+<include file="struts/struts-function.xml"></include>
+<include file="struts/struts-account.xml"></include>
+</struts>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd" >
+
+<struts>
+
+ 
+    <package name="custom" namespace="/" extends="admin">
+        
+  
+                     <action name="modifyCustomStatus" class="org.agent.action.CustomAction" method="modifyCustomStatus">
+     	  <result type="redirectAction">customlist</result>
+     	    <result name="input">/WEB-INF/pages/addcustom.jsp</result>
+      </action>
+        
+        
+                        <action name="modifysavecustom" class="org.agent.action.CustomAction" >
+    			  <result type="redirectAction">customlist</result>
+         			  <result name="input">/WEB-INF/pages/modifycustom.jsp</result> 
+      </action>
+        
+        
+                <action name="chakancustom" class="org.agent.action.CustomAction" method="chakanCustom">
+      <result>/WEB-INF/pages/chakancustom.jsp</result>
+      </action>
+                <action name="modifycustom" class="org.agent.action.CustomAction" method="modifyCustom">
+      <result>/WEB-INF/pages/modifycustom.jsp</result>
+      </action>
+        
+              <action name="loadcity" class="org.agent.action.CustomAction" method="loadCity">
+     
+      </action>
+              <action name="loadarea" class="org.agent.action.CustomAction" method="loadArea">
+     
+      </action>
+    
+             <action name="isexitcustomname" class="org.agent.action.CustomAction" method="isExitCustomName">
+     
+      </action>
+    
+             <action name="addcustom" class="org.agent.action.CustomAction" method="exex">
+      <result>/WEB-INF/pages/addcustom.jsp</result>
+      </action>
+               <action name="addsavecustom" class="org.agent.action.CustomAction" method="addCustom">
+      <result type="redirectAction">customlist</result>
+      <result name="input">/WEB-INF/pages/addcustom.jsp</result>
+      </action>
+      
+      
+          
+             <action name="customlist" class="org.agent.action.AccountAction" method="customList">
+      <result>/WEB-INF/pages/customlist.jsp</result>
+      </action>
+      
+      
+    </package>
+ 
+ 
+</struts>

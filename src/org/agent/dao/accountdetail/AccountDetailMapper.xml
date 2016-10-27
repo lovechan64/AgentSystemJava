@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.agent.dao.accountdetail.AccountDetailMapper">
+<select id="getAccountDetailList"   resultType="org.agent.pojo.AccountDetail" parameterType="org.agent.pojo.AccountDetail" >
+	
+		select d.*,u.userName from as_accountdetail as d,as_user as u where d.userId=u.id 
+		
+	<if test="userId!=null and userId!=0">and d.userId =#{userId}</if>
+	<if test="detailTypeName!=null">and d.detailTypeName =#{detailTypeName}</if>
+	<if test="startTime!=null">and d.detailDateTime >=#{startTime}</if>
+	<if test="endTime!=null">and #{endTime} >= d.detailDateTime </if>
+	<if test="detailType!=null and detailType!=0">and d.detailType =#{detailType}</if>
+	
+	order by d.detailDateTime desc 
+	 
+	
+  <if test="starNum!=null   and pageSize!=0 and pageSize!=null">    limit #{starNum},#{pageSize}    </if>  
+ 
+
+
+
+
+
+	</select>	
+	
+	<select id="count"  resultType="int" parameterType="org.agent.pojo.AccountDetail" >
+	
+		select count(1) from as_accountdetail as d,as_user as u where d.userId=u.id 
+				
+	<if test="userId!=null and userId!=0">and d.userId =#{userId}</if>
+	<if test="detailTypeName!=null">and d.detailTypeName =#{detailTypeName}</if>
+	<if test="startTime!=null">and d.detailDateTime >=#{startTime}</if>
+	<if test="endTime!=null">and #{endTime} >= d.detailDateTime </if>
+	<if test="detailType!=null and detailType!=0">and d.detailType =#{detailType}</if>
+	
+	
+	</select>
+
+	<insert id="addAccountDetail"  parameterType="org.agent.pojo.AccountDetail" >
+	insert into as_accountdetail(   userId,detailType,detailTypeName,money,accountMoney,memo,detailDateTime )
+	
+	values( #{userId},#{detailType},#{detailTypeName},#{money},#{accountMoney},#{memo},#{detailDateTime})
+
+	</insert>
+	
+	<!-- 后面的,号 -->
+	<update id="modifyAccountDetail" parameterType="org.agent.pojo.AccountDetail" >
+	update as_accountdetail
+	<set>
+			<if test="userId!=null and userId!=0">  userId =#{userId},</if>
+	<if test="detailTypeName!=null"> detailTypeName =#{detailTypeName},</if>
+	
+	
+	
+	
+  		<if test="detailType!=null and detailType!=0"> detailType =#{detailType}, </if>  
+		<if test="money!=null"> money =#{money}, </if>
+
+
+
+	 	<if test="accountMoney!=null"> accountMoney =#{accountMoney}, </if>  
+		<if test="memo!=null"> memo =#{memo}, </if>
+		<if test="detailDateTime!=null"> detailDateTime =#{detailDateTime}, </if>
+		
+	
+	
+	</set>
+	
+	where id=#{id}
+	</update>
+	<delete id="deleteAccountDetail"  parameterType="org.agent.pojo.AccountDetail">
+	
+	delete from as_accountdetail where id=#{id}
+	</delete>
+	
+	
+	
+	<select id="getAccountDetailIdAndNameList"  resultType="org.agent.pojo.AccountDetail">
+	select id,accountDetailName from as_accountdetail where isStart=1 
+	
+	</select>
+		<select id="isPeatAccountDetail"  parameterType="org.agent.pojo.AccountDetail"  resultType="int">
+	select count(*) from as_accountdetail  
+
+	<where>
+	
+
+				<if test="accountDetailName!=null">
+					and accountDetailName =#{accountDetailName}
+					</if>
+
+	
+	
+	</where>
+	
+	</select>
+	
+</mapper>

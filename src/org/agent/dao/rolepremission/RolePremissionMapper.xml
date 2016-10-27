@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.agent.dao.rolepremission.RolePremissionMapper">
+
+	<!-- 后面的,号 -->
+	<update id="modifyRolePremission" parameterType="org.agent.pojo.RolePremission" >
+	update as_role_premission
+	<set>
+	
+ <if test="isStart!=null"> isStart =#{isStart}, </if>
+		
+<if test="roleId!=null and roleId!=0"> roleId =#{roleId}, </if>
+<if test="functionId!=null and functionId!=0">  =#{functionId}, </if>
+<if test="lastUpdateTime!=null"> lastUpdateTime =#{lastUpdateTime}, </if>
+	
+	
+	</set>
+	
+	where id=#{id}
+	</update>
+	
+	
+	<!-- getList(RolePremission rolePremission);
+	
+	public int addRolePremission(RolePremission rolePremission);
+	 
+ 
+	public int deleteRolePremission -->
+	
+<select id="getList"  parameterType="org.agent.pojo.RolePremission" resultType="org.agent.pojo.RolePremission" >
+	
+		select * from as_role_premission 
+		
+ 
+ 	<where>
+		  <if test="isStart!=null">
+		and isStart =#{isStart}
+		
+		</if>  
+	<!-- 	<if test="configType!=null">
+		and configType=#{configType} 
+		
+		</if> -->
+		<if test="roleId!=null and roleId!=0">
+		and roleId=#{roleId} 
+		
+		</if>
+		<if test="id!=null and id!=0">
+		and id=#{id} 
+		
+		</if>
+		<if test="id!=null and id!=0">
+		and id=#{id} 
+		
+		</if>
+	
+	</where> 
+ </select>	
+	
+	
+<!-- 	
+	<select id="getSystemConfigsIsStart"  parameterType="org.agent.pojo.RolePremission" resultType="org.agent.pojo.RolePremission" >
+	
+		select * from as_role_premission where isStart=1
+	 
+ 		<if test="configType!=null">
+		and configType=#{configType} 
+		
+		</if>
+		<if test="id!=null">
+		and id=#{id} 
+		
+		</if>
+	 
+	 
+	</select>
+
+ -->
+	<insert id="addRolePremission"  parameterType="org.agent.pojo.RolePremission" >
+	insert into as_role_premission(
+	
+	roleId,functionId,creationTime,createdBy,lastUpdateTime,isStart)
+	
+	values(#{roleId},#{functionId},#{creationTime},#{createdBy},#{lastUpdateTime},#{isStart})
+
+	</insert>
+	
+	<delete id="deleteRolePremission"  parameterType="org.agent.pojo.RolePremission">
+	
+	delete from as_role_premission  
+<where>
+<if test="roleId!=null and roleId!=0">  roleId =#{roleId}</if>
+
+</where>
+	
+	
+	</delete>
+	
+	 
+	
+	
+	
+	
+</mapper>
